@@ -10,7 +10,7 @@ export default function App() {
       <Grid item>
         <LandingPage/>
       </Grid>
-      {/* Stepper for reference...*/}
+      {/* Stepper for reference....*/}
       <Grid item>
         <StepperComponent/>
       </Grid>
