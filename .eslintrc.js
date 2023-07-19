@@ -31,5 +31,13 @@ module.exports = {
         "plugins": ['eslint-plugin-import-helpers',"import"],
         "rules": {
             "import/extensions": "off",
+        },
+        "settings": {
+            'import/resolver': {
+                "node": {
+                    "extensions": ['.js', '.jsx', '.ts', '.tsx'],
+                    "moduleDirectory": ['node_modules', 'src/'],
+                },
+            },
         }
 }
