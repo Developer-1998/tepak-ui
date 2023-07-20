@@ -9,50 +9,50 @@ export default function LandingPage() {
   const handleClickOpen = () => {
     setOpen(true);
   };
- const handleClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
   return (
-  <>
-    <div className="App">
-      <div className="container-fluid gx-0">
-        <div className="top-head"></div>
-        <div className="hero-banner">
-          <div className="dialogue-box">
-            <p className="mb-0">What would you like to do?</p>
-            <div className="d-flex">
-              <div className="detail-box">
-                <h4>I know the details</h4>
-                <small
-                >Select if you know the details of your tapes and all the
-                  required information</small
-                >
+    <>
+      <div className="App">
+        <div className="container-fluid gx-0">
+          <div className="top-head"></div>
+          <div className="hero-banner">
+            <div className="dialogue-box">
+              <p className="mb-0">What would you like to do?</p>
+              <div className="d-flex">
+                <div className="detail-box">
+                  <h4>I know the details</h4>
+                  <small
+                  >Select if you know the details of your tapes and all the
+                    required information</small
+                  >
+                </div>
+                <div className="detail-box brd-color">
+                  <h4>I want TapeArk to assist</h4>
+                  <small
+                  >Select this if you want TapeArk to create your order
+                    requirement for you</small
+                  >
+                </div>
               </div>
-              <div className="detail-box brd-color">
-                <h4>I want TapeArk to assist</h4>
-                <small
-                >Select this if you want TapeArk to create your order
-                  requirement for you</small
-                >
+              <div className="btn-next text-center">
+                <button className="btn btn-primary" onClick={handleClickOpen}>Next</button>
               </div>
-            </div>
-            <div className="btn-next text-center">
-              <button className="btn btn-primary" onClick={handleClickOpen}>Next</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <Dialog
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          <StepperComponent/>
-         </DialogContent>
+          <StepperComponent />
+        </DialogContent>
       </Dialog>
-  </>
+    </>
   );
 }
