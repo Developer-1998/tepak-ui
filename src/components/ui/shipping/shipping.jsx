@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box, Typography, Paper } from "@mui/material";
+import { Grid, Box, Typography,Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { styled } from "@mui/material/styles";
 import MuiToggleButton from "@mui/material/ToggleButton";
@@ -51,10 +51,6 @@ export default function Shipping() {
       <Grid
         container
         direction="column"
-        justifyContent="center"
-        justifyItems="center"
-        alignItems="center"
-        alignContent="center"
         spacing={2}
       >
         <Box p={1}>
@@ -68,7 +64,7 @@ export default function Shipping() {
             </Typography>
           </Grid>
         </Box>
-        <Box p={1}>
+        <Box p={1} mt={4}>
           <Grid item xs={12}>
             <Grid
               container
@@ -209,8 +205,9 @@ export default function Shipping() {
             </Box>
             <Box p={1} mt={2}>
               <Grid item xs={6}>
-                <Paper className={styles.paperStyle} elevation={1}>
+                <Paper  elevation={2}>
                   <Grid
+                  className={styles.paperStyle}
                     container
                     direction="column"
                     style={{ padding: "14px" }}
@@ -400,6 +397,7 @@ const useStyles = makeStyles({
     "& .MuiButtonBase-root": {
       textTransform: "none !important",
     },
+    marginTop:'45px'
   },
   mainHeading: {
     fontWeight: 400,
@@ -417,7 +415,7 @@ const useStyles = makeStyles({
     backgroundColor: "#fafafa",
   },
   paperStyle: {
-    backgroundColor: "grey",
+    backgroundColor: "white",
   },
   formHeading: {
     fontSize: "16px",

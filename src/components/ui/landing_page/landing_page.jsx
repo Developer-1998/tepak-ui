@@ -6,12 +6,10 @@ import StepperComponent from "../others/stepper";
 
 export default function LandingPage() {
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  const handleClose = () => {
+ const handleClose = () => {
     setOpen(false);
   };
   return (
