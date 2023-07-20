@@ -13,6 +13,8 @@ import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector
 import PropTypes from 'prop-types';
 import UserInformationContainer from './UserInformationContainer';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Shipping from '../shipping/shipping';
+import { Grid } from '@mui/material';
 
 const steps = ['User Information', 'Shipping', 'Tape', 'Billing', 'Ingestion'];
 
@@ -202,7 +204,7 @@ export default function StepperComponent() {
               <ArrowBackIcon />
             </IconButton></div>
 
-          <div style={{ paddingLeft: '182px', paddingTop: '32px' }}>
+          {/* <div style={{ paddingLeft: '182px', paddingTop: '32px' }}>
             {activeStep === 0 && (
               <React.Fragment>
                 <UserInformationContainer></UserInformationContainer>
@@ -211,14 +213,35 @@ export default function StepperComponent() {
 
             {activeStep === 1 && (     //Add component here for the step
               <React.Fragment>
-                <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-                  Step {activeStep + 1}
-                </Typography>
+                <Grid container direction="row" justifyContent="center" alignContent="center" alignItems="center">
+                  <Grid item>
+                  <Shipping/>
+                  </Grid>
+                </Grid>
               </React.Fragment>
             )}
-          </div>
+          </div> */}
+          <Grid container direction="column" justifyContent="center" alignContent="center" style={{ paddingTop: '32px' }}>
+            <Grid item xs={12}>
+            {activeStep === 0 && (
+              <React.Fragment>
+                <UserInformationContainer></UserInformationContainer>
+              </React.Fragment>
+            )}
+            </Grid>
+            <Grid item>
+            {activeStep === 1 && (     //Add component here for the step
+              <React.Fragment>
+                <Grid container direction="row" justifyContent="center" alignContent="center" alignItems="center">
+                  <Grid item xs={12}>
+                  <Shipping/>
+                  </Grid>
+                </Grid>
+              </React.Fragment>
+            )}
+            </Grid>
+          </Grid>
         </div>
-
         <div>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
