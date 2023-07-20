@@ -32,7 +32,101 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* Landing Page Css */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Poppins;
+  line-height: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+
+p {
+  color: #686868;
+  font-size: 14px;
+  font-style: normal;
+}
+
+small {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.top-head {
+  background-image: url("./assets/img/top-bar.png");
+  background-size: cover;
+  height: 83px;
+  background-repeat: no-repeat;
+}
+
+.hero-banner {
+  background-image: url("./assets/img/bg-img.png");
+  background-size: cover;
+  height: 89vh;
+  background-repeat: no-repeat;
+}
+
+.dialogue-box {
+  border-radius: 8px;
+  border: 1px solid #c7c7c7;
+  background: #fff;
+  padding: 12px;
+  width: 350px;
+  min-width: 350px;
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.detail-box {
+  border-radius: 4px;
+  background: var(--maroon-gradient,
+      linear-gradient(180deg, #ad304c 0%, #8c1d36 100%));
+  padding: 10px;
+}
+
+.brd-color {
+  border-radius: 8px;
+  border: 1px solid #c7c7c7;
+  background: #fff;
+  margin-left: 11px;
+}
+
+.brd-color h4 {
+  color: #686868;
+}
+
+.brd-color small {
+  color: #686868;
+}
+
+.btn-primary {
+  margin-top: 12px;
+  border-radius: 30px;
+  background: var(--maroon-gradient,
+      linear-gradient(180deg, #ad304c 0%, #8c1d36 100%));
+  border: 0;
+  width: 100%;
+  padding: 18px;
+  min-width: 280px;
+  max-width: 280px;
 }
