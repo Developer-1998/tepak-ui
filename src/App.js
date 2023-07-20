@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box ,Grid} from '@mui/material';
 import LandingPage from './components/ui/landing_page/landing_page';
-import StepperComponent from "./components/ui/others/stepper";
-
+import Shipping from './components/ui/shipping/shipping';
 export default function App() {
   return (
    <Box p={4}>
@@ -12,7 +11,7 @@ export default function App() {
       </Grid>
       {/* Stepper for reference*/}
       <Grid item>
-        <StepperComponent/>
+        <Shipping/>
       </Grid>
     </Grid>
    </Box>
