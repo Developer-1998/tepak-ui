@@ -107,7 +107,10 @@ const validatePhoneNumber = (input) => {
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
       <TextField
@@ -121,7 +124,10 @@ const validatePhoneNumber = (input) => {
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
     <TextField
@@ -135,7 +141,10 @@ const validatePhoneNumber = (input) => {
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
 {/*       <InputLabel
@@ -177,7 +186,10 @@ const validatePhoneNumber = (input) => {
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
       <TextField
@@ -194,7 +206,10 @@ const validatePhoneNumber = (input) => {
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
     </Box>
@@ -202,7 +217,7 @@ const validatePhoneNumber = (input) => {
 };
 
 UserInformationContainer.propTypes = {
-  formKey: PropTypes.func.isRequired,
+  formKey: PropTypes.number.isRequired,
 };
 
 export default UserInformationContainer;
