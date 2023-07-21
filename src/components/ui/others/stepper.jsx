@@ -102,6 +102,7 @@ const CustomConnector = styled(StepConnector)(() => ({
 export default function StepperComponent() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+  const [formKey, setFormKey] = React.useState(0); // State variable for resetting the form
 
   const totalSteps = () => {
     return steps.length;
@@ -144,10 +145,10 @@ export default function StepperComponent() {
     handleNext();
   };
 
-  /*   const handleReset = () => {
-      setActiveStep(0);
-      setCompleted({});
-    }; */
+  const handleFormReset = () => {
+    // Set the form key to a new value to trigger the form reset
+    setFormKey((prevFormKey) => prevFormKey + 1);
+  };
 
   return (
     <Dialog
@@ -225,7 +226,7 @@ export default function StepperComponent() {
             <Grid item xs={12}>
             {activeStep === 0 && (
               <React.Fragment>
-                <UserInformationContainer></UserInformationContainer>
+                <UserInformationContainer formKey={formKey}></UserInformationContainer>
               </React.Fragment>
             )}
             </Grid>
@@ -244,12 +245,16 @@ export default function StepperComponent() {
         </div>
         <div>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              disabled={activeStep === 0}
-              onClick={handleBack}
+          <Button
+              onClick={handleFormReset}
               sx={{
-                mr: 1, width: '280px', height: '60px', gap: '10px', borderRadius: '30px',
-                background: 'linear-gradient(180deg, #AD304C 0%, #8C1D36 100%)', color: '#FFFFFF', display: 'none'
+                mr: 1,
+                width: '280px',
+                height: '60px',
+                gap: '10px',
+                borderRadius: '30px',
+                background: 'linear-gradient(180deg, #AD304C 0%, #8C1D36 100%)',
+                color: '#FFFFFF',
               }}
             >
               Reset
