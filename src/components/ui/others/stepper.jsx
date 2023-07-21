@@ -244,7 +244,7 @@ export default function StepperComponent() {
           </Grid>
         </div>
         <div>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 16 }}>
           <Button
               onClick={handleFormReset}
               sx={{
