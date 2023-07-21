@@ -1,31 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types'; // Import PropTypes
+
 /* import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel'; */
 
-const UserInformationContainer = () => {
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [phoneNumberError, setPhoneNumberError] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [emailError, setEmailError] = React.useState('');
-  /*     const [country, setCountry] = React.useState('');
-   */
-  /*     const handleCountryChange = (event) => {
-          setCountry(event.target.value);
-        }; */
-  // Phone number validation function
-  const validatePhoneNumber = (input) => {
-    // Regular expression for phone number 
-    const phoneRegExp = /^\+?\d{0,3}?(\d{10})$/;
-    if (!input.match(phoneRegExp)) {
-      return 'Invalid phone number. Please enter a valid phone number.';
-    }
-    return '';
-  };
+const UserInformationContainer = ({ formKey }) => {
+    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [phoneNumberError, setPhoneNumberError] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [emailError, setEmailError] = React.useState('');
+    const [fullName, setFullName] = React.useState('');
+    const [country, setCountry] = React.useState('');
+    const [company, setCompany] = React.useState('');
 
+    const handleFormReset = () => {
+      setPhoneNumber('');
+      setPhoneNumberError('');
+      setEmail('');
+      setEmailError('');
+      setCountry('');
+      setFullName('');
+      setCompany('');
+    };
+
+/*     const [country, setCountry] = React.useState('');
+ */
+/*     const handleCountryChange = (event) => {
+        setCountry(event.target.value);
+      }; */
+    // Phone number validation function
+const validatePhoneNumber = (input) => {
+    // Regular expression for phone number 
+        const phoneRegExp = /^\+?\d{0,3}?(\d{10})$/;
+        if (!input.match(phoneRegExp)) {
+            return 'Invalid phone number. Please enter a valid phone number.';
+        }
+        return '';
+  };
+    // Use useEffect to listen for changes in 'resetClicked' prop
+    useEffect(() => {
+      if (formKey) {
+        handleFormReset();
+      }
+    }, [formKey]);
+  
   // Email validation function
   const validateEmail = (input) => {
     // Regular expression for email validation
@@ -42,7 +64,7 @@ const UserInformationContainer = () => {
         height: '380.8671875px',
         borderRadius: '8px',
         padding: '20px',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFFFFF', 
       }}
     >
       <Typography
@@ -73,37 +95,59 @@ const UserInformationContainer = () => {
       >
         All Fields are Mandatory
       </Typography>
+
       <TextField
         label="Full Name"
         variant="filled"
+        value={fullName}
+        onChange={(e) => {
+          setFullName(e.target.value);
+        }}
         sx={{
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
       <TextField
         label="Company"
         variant="filled"
+        value={company}
+        onChange={(e) => {
+          setCompany(e.target.value);
+        }}
         sx={{
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
-      <TextField
+    <TextField
         label="Country"
         variant="filled"
+        value={country}
+        onChange={(e) => {
+          setCountry(e.target.value);
+        }}
         sx={{
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
-      {/*       <InputLabel
+{/*       <InputLabel
         htmlFor="country-select"
         sx={{
           marginTop: '24px', 
@@ -111,7 +155,7 @@ const UserInformationContainer = () => {
       >
         Country
       </InputLabel> */}
-      {/*       <Select
+{/*       <Select
         value={country}
         onChange={handleCountryChange}
         
@@ -132,17 +176,20 @@ const UserInformationContainer = () => {
         label="Phone Number"
         variant="filled"
         value={phoneNumber}
-        error={Boolean(phoneNumberError)}
-        helperText={phoneNumberError}
-        onChange={(e) => {
-          setPhoneNumber(e.target.value);
-          setPhoneNumberError(validatePhoneNumber(e.target.value));
-        }}
+  error={Boolean(phoneNumberError)}
+  helperText={phoneNumberError}
+  onChange={(e) => {
+    setPhoneNumber(e.target.value);
+    setPhoneNumberError(validatePhoneNumber(e.target.value));
+  }}
         sx={{
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
       <TextField
@@ -159,11 +206,18 @@ const UserInformationContainer = () => {
           width: '386px',
           height: '28px',
           padding: '7.868816375732422px 0px 0.45914268493652344px 0px',
-          marginTop: '24px',
+          marginTop: '42px',
+          '& .MuiFilledInput-root': {
+            backgroundColor: 'white', // Change the background color of the FilledInput
+          },
         }}
       />
     </Box>
   );
+};
+
+UserInformationContainer.propTypes = {
+  formKey: PropTypes.number.isRequired,
 };
 
 export default UserInformationContainer;
