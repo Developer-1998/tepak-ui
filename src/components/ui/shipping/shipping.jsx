@@ -16,6 +16,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Country, State } from "country-state-city";
 import { useForm } from "react-hook-form";
+import dayjs from 'dayjs';
+
 export default function Shipping() {
   const styles = useStyles();
   const [pickup, setPickup] = React.useState(true);
@@ -27,7 +29,8 @@ export default function Shipping() {
   const [selectedState, setSelectedState] = React.useState("");
   const [injestionCenter, setInjestionCenter] = React.useState("");
   const [formData, setFormData] = React.useState([]);
-  const { register, handleSubmit} = useForm();
+  const [value, setValue] = React.useState(dayjs('2022-04-17T15:30'));
+  const { register, handleSubmit, reset } = useForm();
   const handleChangePickup = (event, t) => {
     setPickup(t);
   };
@@ -42,10 +45,8 @@ export default function Shipping() {
   }
   const onSubmit = (data) => {
     setFormData(data);
+    reset();
   }
-  // const onClickReset = () => {
-  //   reset(formData);
-  // }
   React.useEffect(() => {
     setCountries(Country.getAllCountries());
   }, []);
@@ -53,6 +54,15 @@ export default function Shipping() {
     const stateData = State.getStatesOfCountry(selectedCountry);
     setStates(stateData);
   }, [selectedCountry]);
+  const onchangeDateTimePicker = (newValue) => {
+    setValue(newValue)
+  }
+  const onchangeResetForm = () => {
+    console.log(reset())
+    reset({
+      FullName: null
+    });
+  }
   return (
     <Box className={styles.root}>
       <Grid
@@ -168,8 +178,11 @@ export default function Shipping() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={["DateTimePicker"]}>
                         <DateTimePicker
+                          // InputProps={{ sx: { "& .MuiSvgIcon-root": { color: "blue" } } }}
+                          value={value}
+                          onChange={onchangeDateTimePicker}
                           label="Select date and time"
-                          sx={{ "& .MuiFormLabel-root": { color: "#8C1D36" } }}
+                          sx={{ "& .MuiFormLabel-root": { color: "#8C1D36" }, "& .MuiSvgIcon-root": { color: "#8C1D36" } }}
                         />
                       </DemoContainer>
                     </LocalizationProvider>
@@ -212,8 +225,35 @@ export default function Shipping() {
             </Box>
             {
               formData && (
-               <Box>
-                 <Grid item xs={3}>
+                <Box>
+                  {/* {formData.map((val,ind)=>{
+                  return (
+                    <>
+                    
+                    <Grid item xs={3}>
+                    <Paper elevation={3}>
+                      <Grid container direction="column" alignItems="center" alignContent="center" kry={ind}>
+                        <Grid item>
+                          <Typography className={styles.cardHeading} align="center">{formData.FullName}</Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography className={styles.cardPhone} align="center">{formData.phoneNumber}</Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography>{formData.address}</Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography>{formData.Country}</Typography>
+                        </Grid>
+                      </Grid>
+                    </Paper>
+                  </Grid>
+                    </>
+                  )
+                })} */}
+
+
+                  <Grid item xs={3}>
                     <Paper elevation={3}>
                       <Grid container direction="column" alignItems="center" alignContent="center">
                         <Grid item>
@@ -231,366 +271,366 @@ export default function Shipping() {
                       </Grid>
                     </Paper>
                   </Grid>
-               </Box>
+                </Box>
               )
             }
-            { locations && formData.length < 1 ? (
-                <Box p={1} mt={2}>
-                  <Grid item xs={6}>
-                    <Paper elevation={2}>
-                      <Grid
-                        className={styles.paperStyle}
-                        container
-                        direction="column"
-                        style={{ padding: "14px" }}
-                      >
-                        <Grid item>
-                          <Typography className={styles.formHeading}>
-                            Add your details
-                          </Typography>
-                        </Grid>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          <Grid item>
-                            <TextField
-                              {...register("FullName")}
-                              id="standard-basic"
-                              label="Full Name"
-                              variant="standard"
-                              fullWidth={true}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="space-between"
-                            >
-                              <Grid item>
-                                <FormControl
-                                  variant="standard"
-                                  sx={{ m: 1, minWidth: 120 }}
-                                >
-                                  <InputLabel id="demo-simple-select-standard-label">
-                                    Country
-                                  </InputLabel>
-                                  <Select
-                                    {...register("Country")}
-                                    labelId="demo-simple-select-standard-label"
-                                    id="demo-simple-select-standard"
-                                    value={selectedCountry}
-                                    onChange={(event) =>
-                                      setSelectedCountry(event.target.value)
-                                    }
-                                    label="Country"
-                                  >
-                                    {countries.map(({ isoCode, phonecode }) => (
-                                      <MenuItem value={isoCode} key={isoCode}>
-                                        {" "}
-                                        {isoCode} ({phonecode})
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </FormControl>
-                              </Grid>
-                              <Grid item>
-                                <TextField
-                                  {...register("phoneNumber")}
-                                  id="standard-basic"
-                                  label="Phone Number"
-                                  variant="standard"
-                                  fullWidth={true}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item>
-                            <TextField
-                              {...register("address")}
-                              id="standard-basic"
-                              label="Address"
-                              variant="standard"
-                              fullWidth={true}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="space-between"
-                            >
-                              <Grid item>
-                                <FormControl
-                                  variant="standard"
-                                  sx={{ m: 1, minWidth: 120 }}
-                                >
-                                  <InputLabel id="demo-simple-select-standard-label">
-                                    State
-                                  </InputLabel>
-                                  <Select
-                                    {...register("state")}
-                                    labelId="demo-simple-select-standard-label"
-                                    id="demo-simple-select-standard"
-                                    value={selectedState}
-                                    onChange={(event) =>
-                                      setSelectedState(event.target.value)
-                                    }
-                                    label="State"
-                                  >
-                                    {states.length > 0 ? (
-                                      states.map(({ isoCode, name }) => (
-                                        <MenuItem value={isoCode} key={isoCode}>
-                                          {name}
-                                        </MenuItem>
-                                      ))
-                                    ) : (
-                                      <MenuItem value="" key="">
-                                        No state found
-                                      </MenuItem>
-                                    )}
-                                  </Select>
-                                </FormControl>
-                              </Grid>
-                              <Grid item>
-                                <TextField
-                                  {...register("zip")}
-                                  id="standard-basic"
-                                  label="Zip"
-                                  variant="standard"
-                                  fullWidth={true}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item>
-                            <FormControl
-                              variant="standard"
-                              sx={{ m: 1, minWidth: 120 }}
-                              fullWidth={true}
-                            >
-                              <InputLabel id="demo-simple-select-standard-label">
-                                Injestion Center
-                              </InputLabel>
-                              <Select
-                                {...register("injestion")}
-                                labelId="demo-simple-select-standard-label"
-                                id="demo-simple-select-standard"
-                                value={injestionCenter}
-                                onChange={onchangeInjestion}
-                                label="Country"
-                              >
-                                {countries.map(({ name, isoCode }) => (
-                                  <MenuItem value={isoCode} key={isoCode}>
-                                    {" "}
-                                    {name}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="flex-end"
-                              spacing={2}
-                            >
-                              <Grid item>
-                                <Button variant="text" color="inherit"><b>Reset</b></Button>
-                              </Grid>
-                              <Grid item>
-                                <Button variant="contained" type="submit" style={{
-                                  backgroundColor:'#841A15',
-                                  fontSize:'12px',
-                                  width:'70px',
-                                  borderRadius:'8px'
-                                }}>Add</Button>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </form>
-                      </Grid>
-                    </Paper>
-                  </Grid>
-                </Box>
-              ) : !locations ? (<>
+            {locations && formData.length < 1 ? (
               <Box p={1} mt={2}>
-                  <Grid item xs={6}>
-                    <Paper elevation={2}>
-                      <Grid
-                        className={styles.paperStyle}
-                        container
-                        direction="column"
-                        style={{ padding: "14px" }}
-                      >
-                        <Grid item>
-                          <Typography className={styles.formHeading}>
-                            Add your details
-                          </Typography>
-                        </Grid>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          <Grid item>
-                            <TextField
-                              {...register("FullName")}
-                              id="standard-basic"
-                              label="Full Name"
-                              variant="standard"
-                              fullWidth={true}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="space-between"
-                            >
-                              <Grid item>
-                                <FormControl
-                                  variant="standard"
-                                  sx={{ m: 1, minWidth: 120 }}
-                                >
-                                  <InputLabel id="demo-simple-select-standard-label">
-                                    Country
-                                  </InputLabel>
-                                  <Select
-                                    {...register("Country")}
-                                    labelId="demo-simple-select-standard-label"
-                                    id="demo-simple-select-standard"
-                                    value={selectedCountry}
-                                    onChange={(event) =>
-                                      setSelectedCountry(event.target.value)
-                                    }
-                                    label="Country"
-                                  >
-                                    {countries.map(({ isoCode, phonecode }) => (
-                                      <MenuItem value={isoCode} key={isoCode}>
-                                        {" "}
-                                        {isoCode} ({phonecode})
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </FormControl>
-                              </Grid>
-                              <Grid item>
-                                <TextField
-                                  {...register("phoneNumber")}
-                                  id="standard-basic"
-                                  label="Phone Number"
-                                  variant="standard"
-                                  fullWidth={true}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item>
-                            <TextField
-                              {...register("address")}
-                              id="standard-basic"
-                              label="Address"
-                              variant="standard"
-                              fullWidth={true}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="space-between"
-                            >
-                              <Grid item>
-                                <FormControl
-                                  variant="standard"
-                                  sx={{ m: 1, minWidth: 120 }}
-                                >
-                                  <InputLabel id="demo-simple-select-standard-label">
-                                    State
-                                  </InputLabel>
-                                  <Select
-                                    {...register("state")}
-                                    labelId="demo-simple-select-standard-label"
-                                    id="demo-simple-select-standard"
-                                    value={selectedState}
-                                    onChange={(event) =>
-                                      setSelectedState(event.target.value)
-                                    }
-                                    label="State"
-                                  >
-                                    {states.length > 0 ? (
-                                      states.map(({ isoCode, name }) => (
-                                        <MenuItem value={isoCode} key={isoCode}>
-                                          {name}
-                                        </MenuItem>
-                                      ))
-                                    ) : (
-                                      <MenuItem value="" key="">
-                                        No state found
-                                      </MenuItem>
-                                    )}
-                                  </Select>
-                                </FormControl>
-                              </Grid>
-                              <Grid item>
-                                <TextField
-                                  {...register("zip")}
-                                  id="standard-basic"
-                                  label="Zip"
-                                  variant="standard"
-                                  fullWidth={true}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item>
-                            <FormControl
-                              variant="standard"
-                              sx={{ m: 1, minWidth: 120 }}
-                              fullWidth={true}
-                            >
-                              <InputLabel id="demo-simple-select-standard-label">
-                                Injestion Center
-                              </InputLabel>
-                              <Select
-                                {...register("injestion")}
-                                labelId="demo-simple-select-standard-label"
-                                id="demo-simple-select-standard"
-                                value={injestionCenter}
-                                onChange={onchangeInjestion}
-                                label="Country"
-                              >
-                                {countries.map(({ name, isoCode }) => (
-                                  <MenuItem value={isoCode} key={isoCode}>
-                                    {" "}
-                                    {name}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="flex-end"
-                              spacing={2}
-                            >
-                              <Grid item>
-                                <Button variant="text" color="inherit"><b>Reset</b></Button>
-                              </Grid>
-                              <Grid item>
-                              <Button variant="contained" type="submit" style={{
-                                  backgroundColor:'#841A15',
-                                  fontSize:'12px',
-                                  width:'70px',
-                                  borderRadius:'8px'
-                                }}>Add</Button>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </form>
+                <Grid item xs={6}>
+                  <Paper elevation={2}>
+                    <Grid
+                      className={styles.paperStyle}
+                      container
+                      direction="column"
+                      style={{ padding: "14px" }}
+                    >
+                      <Grid item>
+                        <Typography className={styles.formHeading}>
+                          Add your details
+                        </Typography>
                       </Grid>
-                    </Paper>
-                  </Grid>
-                </Box>
-              </>) : (<></>)
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                        <Grid item>
+                          <TextField
+                            {...register("FullName",{required : true})}
+                            id="standard-basic"
+                            label="Full Name"
+                            variant="standard"
+                            fullWidth={true}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                          >
+                            <Grid item>
+                              <FormControl
+                                variant="standard"
+                                sx={{ m: 1, minWidth: 120 }}
+                              >
+                                <InputLabel id="demo-simple-select-standard-label">
+                                  Country
+                                </InputLabel>
+                                <Select
+                                  {...register("Country",{required : true})}
+                                  labelId="demo-simple-select-standard-label"
+                                  id="demo-simple-select-standard"
+                                  value={selectedCountry}
+                                  onChange={(event) =>
+                                    setSelectedCountry(event.target.value)
+                                  }
+                                  label="Country"
+                                >
+                                  {countries.map(({ isoCode, phonecode }) => (
+                                    <MenuItem value={isoCode} key={isoCode}>
+                                      {" "}
+                                      {isoCode} ({phonecode})
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid item>
+                              <TextField
+                                {...register("phoneNumber",{required : true})}
+                                id="standard-basic"
+                                label="Phone Number"
+                                variant="standard"
+                                fullWidth={true}
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            {...register("address",{required : true})}
+                            id="standard-basic"
+                            label="Address"
+                            variant="standard"
+                            fullWidth={true}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                          >
+                            <Grid item>
+                              <FormControl
+                                variant="standard"
+                                sx={{ m: 1, minWidth: 120 }}
+                              >
+                                <InputLabel id="demo-simple-select-standard-label">
+                                  State
+                                </InputLabel>
+                                <Select
+                                  {...register("state",{required : true})}
+                                  labelId="demo-simple-select-standard-label"
+                                  id="demo-simple-select-standard"
+                                  value={selectedState}
+                                  onChange={(event) =>
+                                    setSelectedState(event.target.value)
+                                  }
+                                  label="State"
+                                >
+                                  {states.length > 0 ? (
+                                    states.map(({ isoCode, name }) => (
+                                      <MenuItem value={isoCode} key={isoCode}>
+                                        {name}
+                                      </MenuItem>
+                                    ))
+                                  ) : (
+                                    <MenuItem value="" key="">
+                                      No state found
+                                    </MenuItem>
+                                  )}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid item>
+                              <TextField
+                                {...register("zip",{required : true})}
+                                id="standard-basic"
+                                label="Zip"
+                                variant="standard"
+                                fullWidth={true}
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item>
+                          <FormControl
+                            variant="standard"
+                            sx={{ m: 1, minWidth: 120 }}
+                            fullWidth={true}
+                          >
+                            <InputLabel id="demo-simple-select-standard-label">
+                              Injestion Center
+                            </InputLabel>
+                            <Select
+                              {...register("injestion",{required : true})}
+                              labelId="demo-simple-select-standard-label"
+                              id="demo-simple-select-standard"
+                              value={injestionCenter}
+                              onChange={onchangeInjestion}
+                              label="Country"
+                            >
+                              {countries.map(({ name, isoCode }) => (
+                                <MenuItem value={isoCode} key={isoCode}>
+                                  {" "}
+                                  {name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="flex-end"
+                            spacing={2}
+                          >
+                            <Grid item>
+                              <Button variant="text" color="inherit" onClick={onchangeResetForm}><b>Reset</b></Button>
+                            </Grid>
+                            <Grid item>
+                              <Button variant="contained" type="submit" style={{
+                                backgroundColor: '#841A15',
+                                fontSize: '12px',
+                                width: '70px',
+                                borderRadius: '8px'
+                              }}>Add</Button>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </form>
+                    </Grid>
+                  </Paper>
+                </Grid>
+              </Box>
+            ) : !locations ? (<>
+              <Box p={1} mt={2}>
+                <Grid item xs={6}>
+                  <Paper elevation={2}>
+                    <Grid
+                      className={styles.paperStyle}
+                      container
+                      direction="column"
+                      style={{ padding: "14px" }}
+                    >
+                      <Grid item>
+                        <Typography className={styles.formHeading}>
+                          Add your details
+                        </Typography>
+                      </Grid>
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                        <Grid item>
+                          <TextField
+                            {...register("FullName",{required : true})}
+                            id="standard-basic"
+                            label="Full Name"
+                            variant="standard"
+                            fullWidth={true}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                          >
+                            <Grid item>
+                              <FormControl
+                                variant="standard"
+                                sx={{ m: 1, minWidth: 120 }}
+                              >
+                                <InputLabel id="demo-simple-select-standard-label">
+                                  Country
+                                </InputLabel>
+                                <Select
+                                  {...register("Country",{required : true})}
+                                  labelId="demo-simple-select-standard-label"
+                                  id="demo-simple-select-standard"
+                                  value={selectedCountry}
+                                  onChange={(event) =>
+                                    setSelectedCountry(event.target.value)
+                                  }
+                                  label="Country"
+                                >
+                                  {countries.map(({ isoCode, phonecode }) => (
+                                    <MenuItem value={isoCode} key={isoCode}>
+                                      {" "}
+                                      {isoCode} ({phonecode})
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid item>
+                              <TextField
+                                {...register("phoneNumber",{required : true})}
+                                id="standard-basic"
+                                label="Phone Number"
+                                variant="standard"
+                                fullWidth={true}
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            {...register("address",{required : true})}
+                            id="standard-basic"
+                            label="Address"
+                            variant="standard"
+                            fullWidth={true}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                          >
+                            <Grid item>
+                              <FormControl
+                                variant="standard"
+                                sx={{ m: 1, minWidth: 120 }}
+                              >
+                                <InputLabel id="demo-simple-select-standard-label">
+                                  State
+                                </InputLabel>
+                                <Select
+                                  {...register("state",{required : true})}
+                                  labelId="demo-simple-select-standard-label"
+                                  id="demo-simple-select-standard"
+                                  value={selectedState}
+                                  onChange={(event) =>
+                                    setSelectedState(event.target.value)
+                                  }
+                                  label="State"
+                                >
+                                  {states.length > 0 ? (
+                                    states.map(({ isoCode, name }) => (
+                                      <MenuItem value={isoCode} key={isoCode}>
+                                        {name}
+                                      </MenuItem>
+                                    ))
+                                  ) : (
+                                    <MenuItem value="" key="">
+                                      No state found
+                                    </MenuItem>
+                                  )}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid item>
+                              <TextField
+                                {...register("zip",{required : true})}
+                                id="standard-basic"
+                                label="Zip"
+                                variant="standard"
+                                fullWidth={true}
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item>
+                          <FormControl
+                            variant="standard"
+                            sx={{ m: 1, minWidth: 120 }}
+                            fullWidth={true}
+                          >
+                            <InputLabel id="demo-simple-select-standard-label">
+                              Injestion Center
+                            </InputLabel>
+                            <Select
+                              {...register("injestion",{required : true})}
+                              labelId="demo-simple-select-standard-label"
+                              id="demo-simple-select-standard"
+                              value={injestionCenter}
+                              onChange={onchangeInjestion}
+                              label="Country"
+                            >
+                              {countries.map(({ name, isoCode }) => (
+                                <MenuItem value={isoCode} key={isoCode}>
+                                  {" "}
+                                  {name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="flex-end"
+                            spacing={2}
+                          >
+                            <Grid item>
+                              <Button variant="text" color="inherit" onClick={onchangeResetForm}><b>Reset</b></Button>
+                            </Grid>
+                            <Grid item>
+                              <Button variant="contained" type="submit" style={{
+                                backgroundColor: '#841A15',
+                                fontSize: '12px',
+                                width: '70px',
+                                borderRadius: '8px'
+                              }}>Add</Button>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </form>
+                    </Grid>
+                  </Paper>
+                </Grid>
+              </Box>
+            </>) : (<></>)
             }
 
           </>
@@ -648,14 +688,14 @@ const useStyles = makeStyles({
     fontWeight: 400,
     color: "#344767",
   },
-  cardHeading:{
-    fontWeight:700,
-    fontSize:'32px',
+  cardHeading: {
+    fontWeight: 700,
+    fontSize: '32px',
     color: '#344767'
   },
-  cardPhone:{
-    color:'#344767',
-    fontWeight:700,
-    fontSize:'16px'
+  cardPhone: {
+    color: '#344767',
+    fontWeight: 700,
+    fontSize: '16px'
   }
 });
