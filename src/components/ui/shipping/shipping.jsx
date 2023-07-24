@@ -58,7 +58,7 @@ export default function Shipping() {
     setValue(newValue)
   }
   const onchangeResetForm = () => {
-    console.log(reset())
+    console.log("")
     reset({
       FullName: null
     });
@@ -178,6 +178,7 @@ export default function Shipping() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={["DateTimePicker"]}>
                         <DateTimePicker
+                        disablePast
                           // InputProps={{ sx: { "& .MuiSvgIcon-root": { color: "blue" } } }}
                           value={value}
                           onChange={onchangeDateTimePicker}
